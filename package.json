@@ -4,7 +4,7 @@
   "description": "PrettyLittleThing Technical Interview",
   "main": "app.js",
   "scripts": {
-    "test": "nodemon ./bin/app.js",
+    "test": "jest",
     "start": "node ./bin/app.js"
   },
   "dependencies": {
@@ -22,6 +22,7 @@
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-ts": "^6.0.0-beta.22",
+    "jest": "^27.0.4",
     "nodemon": "^2.0.1",
     "typescript": "^3.9.7"
   },
@@ -29,8 +30,7 @@
     "type": "git",
     "url": "git+https://github.com/ramikamaldev/prettylittlething.git"
   },
-  "keywords": [
-  ],
+  "keywords": [],
   "author": "Rami Kamal",
   "license": "ISC",
   "bugs": {

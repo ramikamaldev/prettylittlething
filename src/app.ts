@@ -1,11 +1,11 @@
-import { checkIfSKUExistsInStock, aggregateAllTransactionsWithGivenSKU, deductAggregatedTransactionsFromStockLevel, retrieveAllTransactionsWithGivenSKU } from "./plt-functionality/plt-functionality"
+import { checkIfSKUExistsInStock, aggregateAllTransactionsWithGivenSKU, calculateAggregatedTransactionsFromStockLevel, retrieveAllTransactionsWithGivenSKU } from "./plt-functionality/plt-functionality"
 
-function calculateSKSU(sku: string): Promise<{ sku: string, qty: string }> {
+function calculateSKSU(sku: string): Promise<{ sku: string, qty: number }> {
     return new Promise(function (resolve, reject) {
         try {
             let transactionArray = retrieveAllTransactionsWithGivenSKU(sku);
             let aggregatedTransactionsObj = aggregateAllTransactionsWithGivenSKU(transactionArray, sku);
-            let newStockLevelObj = deductAggregatedTransactionsFromStockLevel(aggregatedTransactionsObj);
+            let newStockLevelObj = calculateAggregatedTransactionsFromStockLevel(aggregatedTransactionsObj);
             return resolve(newStockLevelObj)
         }
         catch (err) {

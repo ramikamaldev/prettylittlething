@@ -1,9 +1,8 @@
-let stock = require("../../data/stock.json");
-let transactions = require("../../data/transactions.json");
-import { renameKeys } from "../common-functions/utility-functions"
-
+import * as fs from "fs";
+import * as path from "path";
 
 export function retrieveAllTransactionsWithGivenSKU(sku: string): {}[] {
+    let transactions = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../data/transactions.json"),"utf8"))
     let transactionArray = [];
     for (let i = 0; i < transactions.length; i++) {
         if (transactions[i].sku === sku) {
@@ -13,6 +12,7 @@ export function retrieveAllTransactionsWithGivenSKU(sku: string): {}[] {
     if (transactionArray.length == 0) {
         throw new Error("There are no transactions matching the provided SKU")
     }
+    console.log(transactionArray);
     return transactionArray;
 }
 
@@ -27,35 +27,38 @@ export function aggregateAllTransactionsWithGivenSKU(transactionArray, sku) {
         }
     }
     let aggregatedTransactionObject = { sku: sku, qty: stockTransactionCounter };
-    console.log(aggregatedTransactionObject);
     return aggregatedTransactionObject;
 }
 
-export function deductAggregatedTransactionsFromStockLevel(skuTransactionObject) {
-    let skuStockObject: { sku: string, qty: string };
+export function calculateAggregatedTransactionsFromStockLevel(skuTransactionObject) {
+    let stock = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../data/stock.json"),"utf8"))
+    let skuStockObject: { sku: string, qty: number };
     for (let i = 0; i <= stock.length; i++) {
         if (i === stock.length) {
             let stockQty = 0;
-            stock[i] = { "sku": skuTransactionObject["sku"], "qty": stockQty -= skuTransactionObject["qty"] }
-            skuStockObject = stock[i];
-            skuStockObject = renameKeys(skuStockObject, { "stock": "qty" });
+            skuStockObject = { "sku": skuTransactionObject["sku"], "qty": stockQty -= skuTransactionObject["qty"] };
             break;
         }
         if (skuTransactionObject["sku"] === stock[i]["sku"]) {
-            stock[i]["stock"] -= skuTransactionObject["qty"];
+            let stockLevel = stock[i]["stock"]
+            stockLevel -= skuTransactionObject["qty"];
             skuStockObject = stock[i];
-            skuStockObject = renameKeys(skuStockObject, { "stock": "qty" });
+            skuStockObject["qty"] = stockLevel;
+            delete skuStockObject["stock"];
             break;
         }
 
     }
+    console.log(skuStockObject);
     return skuStockObject;
 }
 
 export function checkIfSKUExistsInStock(sku) {
+    let stock = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../data/stock.json"),"utf8"));
     for (let i = 0; i < stock.length; i++) {
         if(sku === stock[i]["sku"])
         {
+            console.log(stock[i]);
             return stock[i];
         }
     }
