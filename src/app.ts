@@ -1,5 +1,10 @@
 import { checkIfSKUExistsInStock, aggregateAllTransactionsWithGivenSKU, calculateAggregatedTransactionsFromStockLevel, retrieveAllTransactionsWithGivenSKU } from "./plt-functionality/plt-functionality"
 
+/**
+ * This function calculates the stock quantity level after all transactions have been applied to it.
+ * @param sku - sku provided by the user
+ * @returns {"sku":string, "qty":number}
+ */
 function calculateSKSU(sku: string): Promise<{ sku: string, qty: number }> {
     return new Promise(function (resolve, reject) {
         try {
@@ -13,7 +18,7 @@ function calculateSKSU(sku: string): Promise<{ sku: string, qty: number }> {
                 return resolve(checkIfSKUExistsInStock(sku));
             }
             catch (error) {
-                return reject(error);
+                throw new Error(error);
             }
         }
     })
