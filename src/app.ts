@@ -5,7 +5,7 @@ import { checkIfSKUExistsInStock, aggregateAllTransactionsWithGivenSKU, calculat
  * @param sku - sku provided by the user
  * @returns {"sku":string, "qty":number}
  */
-function calculateSKSU(sku: string): Promise<{ sku: string, qty: number }> {
+export function calculateSKSU(sku: string): Promise<{ sku: string, qty: number }> {
     return new Promise(function (resolve, reject) {
         try {
             let transactionArray = retrieveAllTransactionsWithGivenSKU(sku);

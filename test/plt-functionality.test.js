@@ -1,5 +1,4 @@
 const { aggregateAllTransactionsWithGivenSKU, checkIfSKUExistsInStock, calculateAggregatedTransactionsFromStockLevel, retrieveAllTransactionsWithGivenSKU } = require("../bin/plt-functionality/plt-functionality");
-
 test("retrieves all transactions with given SKU", function () {
     expect(retrieveAllTransactionsWithGivenSKU("QWP084011/40/33")).toEqual([
         { sku: 'QWP084011/40/33', type: 'order', qty: 9 },
@@ -39,17 +38,17 @@ test("aggregates all transactions with given SKU", function () {
 test("calculates all transactions for given SKU and returns stock level", function () {
     expect(calculateAggregatedTransactionsFromStockLevel({ sku: 'QWP084011/40/33', qty: 59 })).toEqual(
         { sku: 'QWP084011/40/33', qty: 2197 }
-        );
+    );
 });
 
 test("returns a calculated stock level when no SKU existed in stock", function () {
     expect(calculateAggregatedTransactionsFromStockLevel({ sku: 'QWP0840111/40/33', qty: 59 })).toEqual(
         { sku: 'QWP0840111/40/33', qty: -59 }
-        );
+    );
 });
 
 test("asserts whether sku exists in stock", function () {
     expect(checkIfSKUExistsInStock('QWP084011/40/33')).toEqual(
         { sku: 'QWP084011/40/33', stock: 2256 }
-        );
+    );
 });
