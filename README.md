@@ -28,7 +28,7 @@ Pretty Little Thing stock level calculator.
    grunt --env=dev
    ```
 
-6. In order to utilise the calculate stock-level functionality of the application change the SKSU on line 28 from "QWP084011/40/33" to requested SKU
+6. In order to utilise the calculate stock-level functionality of the application change the SKU on line 28 from "QWP084011/40/33" to requested SKU
 
 7. Run the program using the command:
     ```
