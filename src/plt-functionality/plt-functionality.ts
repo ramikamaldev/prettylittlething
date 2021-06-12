@@ -16,7 +16,6 @@ export function retrieveAllTransactionsWithGivenSKU(sku: string) {
     if (transactionArray.length == 0) {
         throw new Error("There are no transactions matching the provided SKU")
     }
-    console.log(transactionArray);
     return transactionArray;
 }
 /**
@@ -62,7 +61,6 @@ export function calculateAggregatedTransactionsFromStockLevel(skuTransactionObje
         }
 
     }
-    console.log(skuStockObject);
     return skuStockObject;
 }
 
@@ -76,7 +74,6 @@ export function checkIfSKUExistsInStock(sku) {
     for (let i = 0; i < stock.length; i++) {
         if(sku === stock[i]["sku"])
         {
-            console.log(stock[i]);
             return stock[i];
         }
     }

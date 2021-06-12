@@ -26,7 +26,7 @@ export function calculateSKSU(sku: string): Promise<{ sku: string, qty: number }
 
 
 calculateSKSU("QWP084011/40/33").then(function (returnedObject) {
-    console.log(returnedObject)
+    console.log("Stock levels: ", returnedObject)
 }).catch(function (error) {
     console.log(error.message);
 });
